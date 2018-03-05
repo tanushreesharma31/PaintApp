@@ -56,6 +56,7 @@ function fur() {
 function spray() {
     var el = document.getElementById('myCanvas');
     var ctx = el.getContext('2d');
+    
     var isDrawing;
     var density = 50;
 
@@ -66,6 +67,7 @@ function spray() {
     el.onmousedown = function (e) {
         isDrawing = true;
         ctx.lineWidth = 10;
+        ctx.fillStyle = "#FF0000";
         ctx.lineJoin = ctx.lineCap = 'round';
         ctx.moveTo(e.clientX, e.clientY);
     };
@@ -623,3 +625,266 @@ function thickBrush() {
     };
 
 }
+function pen() {
+    
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    var el = document.getElementById('myCanvas');
+    var ctx = el.getContext('2d');
+    
+    ctx.lineWidth = 1;
+    ctx.lineJoin = ctx.lineCap = 'round';
+    ctx.strokeStyle = 'purple';
+    
+    var isDrawing, lastPoint;
+    
+    el.onmousedown = function (e) {
+        isDrawing = true;
+        lastPoint = { x: e.clientX, y: e.clientY };
+    };
+    
+    el.onmousemove = function (e) {
+        if (!isDrawing) return;
+        
+        ctx.beginPath();
+        
+        ctx.moveTo(lastPoint.x - getRandomInt(0, 2), lastPoint.y - getRandomInt(0, 2));
+        ctx.lineTo(e.clientX - getRandomInt(0, 2), e.clientY - getRandomInt(0, 2));
+        ctx.stroke();
+        
+        ctx.moveTo(lastPoint.x, lastPoint.y);
+        ctx.lineTo(e.clientX, e.clientY);
+        ctx.stroke();
+        
+        ctx.moveTo(lastPoint.x + getRandomInt(0, 2), lastPoint.y + getRandomInt(0, 2));
+        ctx.lineTo(e.clientX + getRandomInt(0, 2), e.clientY + getRandomInt(0, 2));
+        ctx.stroke();
+        
+        lastPoint = { x: e.clientX, y: e.clientY };
+    };
+    
+    el.onmouseup = function () {
+        isDrawing = false;
+    };
+    
+}
+function pen() {
+    
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    var el = document.getElementById('myCanvas');
+    var ctx = el.getContext('2d');
+    
+    ctx.lineWidth = 1;
+    ctx.lineJoin = ctx.lineCap = 'round';
+    ctx.strokeStyle = 'purple';
+    
+    var isDrawing, lastPoint;
+    
+    el.onmousedown = function (e) {
+        isDrawing = true;
+        lastPoint = { x: e.clientX, y: e.clientY };
+    };
+    
+    el.onmousemove = function (e) {
+        if (!isDrawing) return;
+        
+        ctx.beginPath();
+        
+        ctx.moveTo(lastPoint.x - getRandomInt(0, 2), lastPoint.y - getRandomInt(0, 2));
+        ctx.lineTo(e.clientX - getRandomInt(0, 2), e.clientY - getRandomInt(0, 2));
+        ctx.stroke();
+        
+        ctx.moveTo(lastPoint.x, lastPoint.y);
+        ctx.lineTo(e.clientX, e.clientY);
+        ctx.stroke();
+        
+        ctx.moveTo(lastPoint.x + getRandomInt(0, 2), lastPoint.y + getRandomInt(0, 2));
+        ctx.lineTo(e.clientX + getRandomInt(0, 2), e.clientY + getRandomInt(0, 2));
+        ctx.stroke();
+        
+        lastPoint = { x: e.clientX, y: e.clientY };
+    };
+    
+    el.onmouseup = function () {
+        isDrawing = false;
+    };
+    
+}
+
+function multiLines() {
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+var el = document.getElementById('myCanvas');
+var ctx = el.getContext('2d');
+
+ctx.lineWidth = 1;
+ctx.lineJoin = ctx.lineCap = 'round';
+ctx.strokeStyle = 'purple';
+
+var isDrawing, lastPoint;
+
+el.onmousedown = function(e) {
+    isDrawing = true;
+    lastPoint = { x: e.clientX, y: e.clientY };
+};
+
+el.onmousemove = function(e) {
+    if (!isDrawing) return;
+    
+    ctx.beginPath();
+    
+    ctx.moveTo(lastPoint.x - getRandomInt(0, 2), lastPoint.y - getRandomInt(0, 2));
+    ctx.lineTo(e.clientX - getRandomInt(0, 2), e.clientY - getRandomInt(0, 2));
+    ctx.stroke();
+    
+    ctx.moveTo(lastPoint.x, lastPoint.y);
+    ctx.lineTo(e.clientX, e.clientY);
+    ctx.stroke();
+    
+    ctx.moveTo(lastPoint.x + getRandomInt(0, 2), lastPoint.y + getRandomInt(0, 2));
+    ctx.lineTo(e.clientX + getRandomInt(0, 2), e.clientY + getRandomInt(0, 2));
+    ctx.stroke();
+    
+    lastPoint = { x: e.clientX, y: e.clientY };
+};
+
+el.onmouseup = function() {
+    isDrawing = false;
+};
+}
+function stamp()
+{
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    var el = document.getElementById('myCanvas');
+    var ctx = el.getContext('2d');
+    
+    ctx.lineJoin = ctx.lineCap = 'round';
+    ctx.fillStyle = 'red';
+    
+    var isDrawing, points = [ ], radius = 15;
+    
+    el.onmousedown = function(e) {
+        isDrawing = true;
+        points.push({ x: e.clientX, y: e.clientY });
+    };
+    el.onmousemove = function(e) {
+        if (!isDrawing) return;
+        
+        points.push({ x: e.clientX, y: e.clientY });
+        
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        for (var i = 0; i < points.length; i++) {
+            ctx.beginPath();
+            ctx.arc(points[i].x, points[i].y, radius, false, Math.PI * 2, false);
+            ctx.fill();
+            ctx.stroke();
+        }
+    };
+    el.onmouseup = function() {
+        isDrawing = false;
+        points.length = 0;
+    };
+}
+function star()
+{
+    function drawStar(x, y) {
+        var length = 15;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.beginPath();
+        ctx.rotate((Math.PI * 1 / 10));
+        for (var i = 5; i--;) {
+            ctx.lineTo(0, length);
+            ctx.translate(0, length);
+            ctx.rotate((Math.PI * 2 / 10));
+            ctx.lineTo(0, -length);
+            ctx.translate(0, -length);
+            ctx.rotate(-(Math.PI * 6 / 10));
+        }
+        ctx.lineTo(0, length);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.restore();
+    }
+    
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    var el = document.getElementById('myCanvas');
+    var ctx = el.getContext('2d');
+    
+    ctx.lineJoin = ctx.lineCap = 'round';
+    ctx.fillStyle = 'red';
+    
+    var isDrawing, points = [ ], radius = 15;
+    
+    el.onmousedown = function(e) {
+        isDrawing = true;
+        points.push({ x: e.clientX, y: e.clientY });
+    };
+    el.onmousemove = function(e) {
+        if (!isDrawing) return;
+        
+        points.push({ x: e.clientX, y: e.clientY });
+        
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        for (var i = 0; i < points.length; i++) {
+            drawStar(points[i].x, points[i].y);
+        }
+    };
+    el.onmouseup = function() {
+        isDrawing = false;
+        points.length = 0;
+    };
+}
+function coloredpixel()
+{
+    function drawPixels(x, y) {
+        for (var i = -10; i < 10; i+= 4) {
+            for (var j = -10; j < 10; j+= 4) {
+                if (Math.random() > 0.5) {
+                    ctx.fillStyle = ['red', 'orange', 'yellow', 'green',
+                                     'light-blue', 'blue', 'purple'][getRandomInt(0,6)];
+                    ctx.fillRect(x+i, y+j, 4, 4);
+                }
+            }
+        }
+    }
+    
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    var el = document.getElementById('myCanvas');
+    var ctx = el.getContext('2d');
+    
+    ctx.lineJoin = ctx.lineCap = 'round';
+    var isDrawing, lastPoint;
+    
+    el.onmousedown = function(e) {
+        isDrawing = true;
+        lastPoint = { x: e.clientX, y: e.clientY };
+    };
+    el.onmousemove = function(e) {
+        if (!isDrawing) return;
+        
+        drawPixels(e.clientX, e.clientY);
+        
+        lastPoint = { x: e.clientX, y: e.clientY };
+    };
+    el.onmouseup = function() {
+        isDrawing = false;
+    };
+}
+
